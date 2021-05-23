@@ -15,7 +15,7 @@ interface User extends ApiAnswer {
 interface Task extends ApiAnswer {
     title: string,
     description: string,
-    user: User
+    user: number
 }
 
 interface Section extends ApiAnswer {
@@ -35,12 +35,20 @@ class Api {
         this.host = $host
     }
 
+    async signIn(): Promise<User> {
+        return await this.host.post('/auth/signIn', {name: 'belo4ya'}).then(response => response.data)
+    }
+
     async fetchUsers(): Promise<User[]> {
         return await this.host.get('/users').then(response => response.data)
     }
 
     async fetchBoards(): Promise<Board[]> {
         return await this.host.get('/boards').then(response => response.data)
+    }
+
+    async fetchSection(boardId: number, sectionId: number): Promise<Section[]> {
+        return await this.host.get(`/boards/${boardId}/sections/${sectionId}`).then(response => response.data)
     }
 
 }

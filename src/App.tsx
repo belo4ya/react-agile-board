@@ -1,13 +1,19 @@
 import React from 'react';
-import api from "./api/api";
+import useStore from "./hooks/useStore";
+import {observer} from "mobx-react-lite";
+import Dashboard from "./components/common/Dashboard";
 
 function App() {
-    api.fetchBoards().then(data => console.log(data))
+    const {users, boards} = useStore();
+    console.log(users)
+    console.log(boards.selected?.sections[0]?.tasks.toJSON())
+
     return (
         <div className="App">
             Start
+            <Dashboard/>
         </div>
     );
 }
 
-export default App;
+export default observer(App);

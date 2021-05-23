@@ -3,8 +3,8 @@ import UserStore from "./users";
 import BoardStore from "./board";
 
 const RootStore = types.model('RootStore', {
-    users: UserStore,
-    boards: BoardStore
+    users: types.optional(UserStore, {}),
+    boards: types.optional(BoardStore, {})
 })
 
 export default RootStore;
